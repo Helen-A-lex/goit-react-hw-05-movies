@@ -8,3 +8,9 @@ export const getAllTrendingMovie = async () => {
   console.log(response.data);
   return response.data;
 };
+
+export const getSearchMovie = async search => {
+  const response = await axios.get(`search/movie?query=${search}`);
+  console.log(response.data);
+  return response.data;
+};
