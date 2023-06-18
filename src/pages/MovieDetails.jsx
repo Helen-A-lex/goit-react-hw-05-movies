@@ -5,24 +5,25 @@ export default function MovieDetails () {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [movie, setMovie] = useState([]);
-    const { id } = useParams();
-    console.log(id);
+    const {movieId} = useParams();
+    console.log(movieId);
     useEffect(() => {
         async function loadMovieDetails() {
        setIsLoading(true);
       setError(null);
             try {
-                const { genres, original_title, overview, poster_path, release_date, vote_average } = await getMovieDetails(id); 
+                const { genres, original_title, overview, poster_path, release_date, vote_average } = await getMovieDetails(movieId); 
                 const releaseYear = release_date.slice(0, 4);
                 const votePercentage = vote_average * 10;
+               
           setMovie({
-          genres: genres.map((genre) => genre.name),
+          genres: genres.map((genre) => genre.name).join(" "),
           original_title,
           overview,
           poster_path,
           releaseYear,
           votePercentage,
-        });
+          });
             } catch (error) {
             if (error.code !== 'ERR_CANCELED') {
           setError('Oops! Something went wrong! Try reloading the page!');
@@ -33,14 +34,14 @@ export default function MovieDetails () {
             
         } 
         loadMovieDetails();
-    },[id]);
+    },[movieId]);
     return (
         <div>
-            <img src={movie.poster_path} alt={movie.original_title} />
+            <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.original_title} />
             <ul>
                <li>
-                    <h1>{movie.original_title} {movie.releaseYear}</h1>
-                    <p>User Score:{movie.votePercentage}%</p>
+                    <h1>{movie.original_title} ({movie.releaseYear})</h1>
+                    <p>User Score: {movie.votePercentage}%</p>
                 </li>
                 <li>
                     <h2>Overview</h2>

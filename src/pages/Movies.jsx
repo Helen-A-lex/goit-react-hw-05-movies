@@ -11,7 +11,11 @@ export default function Movies() {
     async function loadSearchMovies(search) {
       setIsLoading(true);
       setError(null);
-      try {
+        try {
+          if (search==="") {
+          setMovies([]);
+          return;
+        }
         const { results } = await getSearchMovie(search);
         setMovies(results);
       } catch (error) {
