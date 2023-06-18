@@ -1,12 +1,15 @@
 import { useEffect,useState } from "react";
 import {getMovieDetails} from "../services/api"
+import { useParams } from "react-router-dom";
 export default function MovieDetails () {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [movie, setMovie] = useState([]);
+    const { id } = useParams();
+    console.log(id);
     useEffect(() => {
         async function loadMovieDetails() {
-      setIsLoading(true);
+       setIsLoading(true);
       setError(null);
             try {
                 const { genres, original_title, overview, poster_path, release_date, vote_average } = await getMovieDetails(id); 
@@ -45,7 +48,7 @@ export default function MovieDetails () {
                 </li>
                 <li>
                     <h2>Genres</h2>
-                    <p>{movie.genre.name}</p>
+                    <p>{movie.genres}</p>
                 </li>
             </ul>
         </div>
