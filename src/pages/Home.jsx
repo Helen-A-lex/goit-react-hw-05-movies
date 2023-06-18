@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAllTrendingMovie} from "../services/api";
-import { Link } from "react-router-dom";
+import { MoviesList } from "components/MoviesList/MoviesList";
 export default function Home ()  {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -28,15 +28,8 @@ export default function Home ()  {
     return (
         <div>
             <h1>Trending Today</h1>
-            {isLoading ? <p>Loading...</p>:
-            <ul>
-        {movies.map((movie) => (
-          <li key={movie.id}>
-            <Link to={`/movies/${movie.id}`}>{movie.original_name || movie.original_title}</Link>
-          </li>
-        ))}
-      </ul>}
-  </div>
+        {isLoading ? <p>Loading...</p> : <MoviesList movies={movies} />}
+        </div>
     )
 }
 ;
