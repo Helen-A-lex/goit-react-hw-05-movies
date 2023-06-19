@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getSearchMovie } from '../services/api';
 import SearchMovieForm from 'components/SearchMoviesForm/SearchMovieForm';
 import { MoviesList } from '../components/MoviesList/MoviesList';
+import { Message } from 'components/Message/Message';
 export default function Movies() {
   const [search, setSearch] = useState('');
   const [movies, setMovies] = useState([]);
@@ -36,7 +37,8 @@ export default function Movies() {
   return (
     <>
       <SearchMovieForm onSubmit={handleSearch} />
-      {isLoading ? <p>Loading...</p> : <MoviesList movies={movies} />}
+          {isLoading ? <Message>Loading...</Message> : <MoviesList movies={movies} />}
+          {error && <Message>{error}</Message>}
     </>
   );
 }
