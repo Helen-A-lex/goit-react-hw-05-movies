@@ -27,7 +27,7 @@ export default function Home() {
 
   return (
     <div>
-      <h1>Trending Today</h1>
+      <h1>Trending today</h1>
       {isLoading ? (
         <Message>Loading...</Message>
       ) : (

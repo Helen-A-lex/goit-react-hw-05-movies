@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { getMovieDetails } from '../services/api';
-import { Outlet, useParams, Link } from 'react-router-dom';
+import {  useParams } from 'react-router-dom';
 import { MovieInfo } from 'components/MovieInfo/MovieInfo';
 import { Message } from 'components/Message/Message';
+import { AdditionalInformation } from 'components/AdditionalInformation/AdditionalInformation';
 export default function MovieDetails() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [movie, setMovie] = useState([]);
+  const [movie, setMovie] = useState({});
   const { movieId } = useParams();
 
   useEffect(() => {
@@ -23,7 +24,7 @@ export default function MovieDetails() {
           vote_average,
         } = await getMovieDetails(movieId);
         const releaseYear = release_date.slice(0, 4);
-        const votePercentage = vote_average * 10;
+        const votePercentage = Math.round(vote_average * 10);
 
         setMovie({
           genres: genres.map(genre => genre.name).join(' '),
@@ -48,18 +49,7 @@ export default function MovieDetails() {
     <>
       {isLoading ? <Message>Loading...</Message> : <MovieInfo movie={movie} />}
       {error && <Message>{error}</Message>}
-      <section>
-        <p>Additional information</p>
-        <ul>
-          <li>
-            <Link to="cast">Cast</Link>
-          </li>
-          <li>
-            <Link to="reviews">Reviews</Link>
-          </li>
-        </ul>
-        <Outlet />
-      </section>
+      <AdditionalInformation/>
     </>
   );
 }

@@ -41,7 +41,7 @@ export default function Reviews() {
               </li>
             ))
           ) : (
-            <Message>We don't have any reviews for this movie.</Message>
+            <Message>We don't have any reviews for this movie</Message>
           )}
         </ul>
       )}

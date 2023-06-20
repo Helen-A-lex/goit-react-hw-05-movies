@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getMovieCast } from '../../services/api';
 import { Message } from 'components/Message/Message';
 import imagePlaceholder from '../../image-placeholder/img-placeholder.png';
+import { Desc, Item } from './Cast.styled';
 
 export default function Cast() {
   const [isLoading, setIsLoading] = useState(false);
@@ -33,20 +34,24 @@ export default function Cast() {
         <Message>Loading...</Message>
       ) : (
         <section>
-          <ul>
-            {casts.map(({ id, name, character, profile_path }) => {
+         <ul>
+          {casts.length > 0 ? (
+            casts.map(({ id, name, character, profile_path }) => {
               const imageUrl = profile_path
                 ? `https://image.tmdb.org/t/p/w92${profile_path}`
                 : imagePlaceholder;
               return (
-                <li key={id}>
+                <Item key={id}>
                   <img src={imageUrl} alt={name} width="92" />
-                  <p>{name}</p>
-                  <p>Character: {character}</p>
-                </li>
+                  <Desc><b>{name}</b></Desc>
+                  <Desc><b>Character:</b> {character}</Desc>
+                </Item>
               );
-            })}
-          </ul>
+            })
+          ) : (
+            <Message>We don't have any information about the cast for this movie</Message>
+          )}
+        </ul>
         </section>
       )}
       {error && <Message>{error}</Message>}

@@ -1,11 +1,13 @@
+import { ListInfo, Wrapper } from "./MovieInfo.styled"
+import PropTypes from 'prop-types';
 export const MovieInfo = ({movie}) => {
     return (
-        <div>
+        <Wrapper>
       <img
         src={movie.poster_path ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : ''}
         alt={movie.original_title}
       />
-      <ul>
+      <ListInfo>
         <li>
           <h1>
             {movie.original_title} ({movie.releaseYear})
@@ -20,7 +22,18 @@ export const MovieInfo = ({movie}) => {
           <h2>Genres</h2>
           <p>{movie.genres}</p>
         </li>
-      </ul>
-    </div>
+      </ListInfo>
+    </Wrapper>
     )
+}
+MovieInfo.propTypes = {
+  movie: PropTypes.shape({
+    poster_path: PropTypes.string,
+    original_title:PropTypes.string,
+    releaseYear: PropTypes.string,
+    votePercentage:PropTypes.number,
+    overview:PropTypes.string,
+    genres: PropTypes.string,}
+  ).isRequired,
+  
 }

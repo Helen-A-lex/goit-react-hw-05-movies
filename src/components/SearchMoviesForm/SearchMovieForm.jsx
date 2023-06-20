@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Form, Input, Button } from './SearchMoviesForm.styled';
+import PropTypes from 'prop-types';
+
 export default function SearchMovieForm({ onSubmit }) {
   const [search, setSearch] = useState('');
   const handleInputChange = evt => {
@@ -20,16 +23,18 @@ export default function SearchMovieForm({ onSubmit }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
+    <Form onSubmit={handleSubmit}>
+      <Input
         type="text"
         autoComplete="off"
         autoFocus
-        placeholder="Search your favorite movie"
         value={search}
         onChange={handleInputChange}
       />
-      <button type="submit"></button>
-    </form>
+      <Button type="submit">Search</Button>
+    </Form>
   );
+}
+SearchMovieForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired
 }
