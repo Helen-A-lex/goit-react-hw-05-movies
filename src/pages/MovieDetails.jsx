@@ -1,15 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { getMovieDetails } from '../services/api';
-import {  useParams } from 'react-router-dom';
+import {  Link, useLocation, useParams } from 'react-router-dom';
 import { MovieInfo } from 'components/MovieInfo/MovieInfo';
 import { Message } from 'components/Message/Message';
 import { AdditionalInformation } from 'components/AdditionalInformation/AdditionalInformation';
+import { TiArrowLeftThick } from "react-icons/ti";
 export default function MovieDetails() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [movie, setMovie] = useState({});
   const { movieId } = useParams();
-
+  const location = useLocation();
+  const backLinkLocationRef = useRef(location.state?.from ?? "/")
+  
   useEffect(() => {
     async function loadMovieDetails() {
       setIsLoading(true);
@@ -47,6 +50,7 @@ export default function MovieDetails() {
 
   return (
     <>
+      <Link to={backLinkLocationRef.current}><button><TiArrowLeftThick/> Go back</button></Link>
       {isLoading ? <Message>Loading...</Message> : <MovieInfo movie={movie} />}
       {error && <Message>{error}</Message>}
       <AdditionalInformation/>

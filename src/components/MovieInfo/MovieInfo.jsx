@@ -1,11 +1,17 @@
-import { ListInfo, Wrapper } from "./MovieInfo.styled"
+import { ListInfo, Wrapper } from './MovieInfo.styled';
 import PropTypes from 'prop-types';
-export const MovieInfo = ({movie}) => {
-    return (
-        <Wrapper>
+import imagePlaceholder from '../../image-placeholder/img-placeholder.png';
+export const MovieInfo = ({ movie }) => {
+  return (
+    <Wrapper>
       <img
-        src={movie.poster_path ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : ''}
+        src={
+          movie.poster_path
+            ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
+            : imagePlaceholder
+        }
         alt={movie.original_title}
+        width="200"
       />
       <ListInfo>
         <li>
@@ -24,16 +30,15 @@ export const MovieInfo = ({movie}) => {
         </li>
       </ListInfo>
     </Wrapper>
-    )
-}
+  );
+};
 MovieInfo.propTypes = {
   movie: PropTypes.shape({
     poster_path: PropTypes.string,
-    original_title:PropTypes.string,
+    original_title: PropTypes.string,
     releaseYear: PropTypes.string,
-    votePercentage:PropTypes.number,
-    overview:PropTypes.string,
-    genres: PropTypes.string,}
-  ).isRequired,
-  
-}
+    votePercentage: PropTypes.number,
+    overview: PropTypes.string,
+    genres: PropTypes.string,
+  }).isRequired,
+};

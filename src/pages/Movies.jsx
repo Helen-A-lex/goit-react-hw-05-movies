@@ -11,7 +11,9 @@ export default function Movies() {
   const [isEmpty, setIsEmpty] = useState(false);
 
   useEffect(() => {
-    async function loadSearchMovies(search) {
+   
+    
+    async function loadSearchMovies( search ) {
       setIsLoading(true);
       setError(null);
         try {
@@ -35,6 +37,9 @@ export default function Movies() {
       }
     }
     loadSearchMovies(search);
+    // return () => {
+    //   abortCtrl.abort();
+    // };
   }, [search]);
 
   const handleSearch = search => {
