@@ -45,10 +45,11 @@ export default function Movies() {
   return (
     <>
       <SearchMovieForm onSubmit={handleSearch} />
+
       {isLoading ? (
         <Message>Loading...</Message>
       ) : (
-        <MoviesList movies={movies} />
+        <>{<MoviesList movies={movies} />}</>
       )}
       {error && <Message>{error}</Message>}
       {isEmpty && <Message>Sorry. There are no movies ...</Message>}

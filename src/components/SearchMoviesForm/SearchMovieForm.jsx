@@ -10,9 +10,10 @@ export default function SearchMovieForm({ onSubmit }) {
   const [searchParams, setSearchParams] = useSearchParams();
  
   useEffect(() => {
-    setSearch(searchParams.get('query') || '');
-   
-  }, [searchParams]);
+   const query = searchParams.get('query') || '';
+   setSearch(query);
+   onSubmit(query);
+  }, [searchParams, onSubmit]);
 
   const handleSubmit = evt => {
     evt.preventDefault();

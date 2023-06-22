@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate} from 'react-router-dom';
 import { lazy } from 'react';
 import SharedLayout from 'components/SharedLayout/SharedLayout';
 import NotFound from 'pages/NotFound';
@@ -20,8 +20,9 @@ export const App = () => {
             <Route path="cast" element={<Cast />} />
             <Route path="reviews" element={<Reviews />} />
           </Route>
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<Navigate to="/404" />} />
         </Route>
+        <Route path="/404" element={<NotFound />} />
       </Routes>
       <ToastContainer autoClose={2000} />
     </>
