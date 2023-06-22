@@ -11,20 +11,18 @@ export default function Movies() {
   const [isEmpty, setIsEmpty] = useState(false);
 
   useEffect(() => {
-   
-    
-    async function loadSearchMovies( search ) {
+    async function loadSearchMovies(search) {
       setIsLoading(true);
       setError(null);
-        try {
-          if (search==="") {
-            setMovies([]);
-            setIsEmpty(false);
+      try {
+        if (search === '') {
+          setMovies([]);
+          setIsEmpty(false);
           return;
         }
         const { results } = await getSearchMovie(search);
-          setMovies(results);
-          if (!results.length) {
+        setMovies(results);
+        if (!results.length) {
           setIsEmpty(true);
           return;
         }
@@ -37,9 +35,6 @@ export default function Movies() {
       }
     }
     loadSearchMovies(search);
-    // return () => {
-    //   abortCtrl.abort();
-    // };
   }, [search]);
 
   const handleSearch = search => {
@@ -50,7 +45,11 @@ export default function Movies() {
   return (
     <>
       <SearchMovieForm onSubmit={handleSearch} />
-        {isLoading ? <Message>Loading...</Message> : <MoviesList movies={movies} />}
+      {isLoading ? (
+        <Message>Loading...</Message>
+      ) : (
+        <MoviesList movies={movies} />
+      )}
       {error && <Message>{error}</Message>}
       {isEmpty && <Message>Sorry. There are no movies ...</Message>}
     </>
