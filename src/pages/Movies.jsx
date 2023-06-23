@@ -25,6 +25,8 @@ export default function Movies() {
         if (!results.length) {
           setIsEmpty(true);
           return;
+        } else {
+          setIsEmpty(false);
         }
       } catch (error) {
         if (error.code !== 'ERR_CANCELED') {
@@ -39,7 +41,7 @@ export default function Movies() {
 
   const handleSearch = search => {
     setSearch(search);
-    setIsEmpty(false);
+    
   };
 
   return (
