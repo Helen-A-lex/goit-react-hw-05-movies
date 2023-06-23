@@ -11,7 +11,8 @@ export default function Movies() {
   const [isEmpty, setIsEmpty] = useState(false);
 
   useEffect(() => {
-    async function loadSearchMovies(search) {
+    const abortCtrl = new AbortController();
+    async function loadSearchMovies(search, signal) {
       setIsLoading(true);
       setError(null);
       try {
@@ -20,7 +21,7 @@ export default function Movies() {
           setIsEmpty(false);
           return;
         }
-        const { results } = await getSearchMovie(search);
+        const { results } = await getSearchMovie({ search, abortCtrl: signal });
         setMovies(results);
         if (!results.length) {
           setIsEmpty(true);
@@ -36,12 +37,14 @@ export default function Movies() {
         setIsLoading(false);
       }
     }
-    loadSearchMovies(search);
+    loadSearchMovies(search, abortCtrl.signal);
+    return () => {
+      abortCtrl.abort();
+    };
   }, [search]);
 
   const handleSearch = search => {
     setSearch(search);
-    
   };
 
   return (
